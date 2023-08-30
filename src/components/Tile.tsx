@@ -38,7 +38,7 @@ const Tile = ({ icon, title, info, description }: Props): JSX.Element => {
   });
   const Icon = icons[icon];
   return (
-    <GlassSection>
+    <GlassSection sx={{ width: { xs: '100%', sm: '40%', md: '40%' } }}>
         <Box sx={{ display: 'flex', alignItems: 'center', fontWeight: 'bold'}}>
           <Icon /> <h4 style={{ margin: '1px'}}>{title}</h4>
         </Box>

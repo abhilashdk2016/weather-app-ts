@@ -13,7 +13,7 @@ import { optionType } from "../types";
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    height: "100%",
+    height: "500px",
     maxHeight: "500px",
     width: "100%",
     color: "gray"

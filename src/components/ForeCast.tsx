@@ -27,8 +27,8 @@ const SunGlassSection = styled(Box)({
 const ForeCast = ({ data } : Props ): JSX.Element => {
   const today = data?.list[0]
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '500px', maxWidth: '500px' }}>
-        <section style={{ textAlign: 'center', width: '100%'}}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: {xs: '100%', sm:'100%', md:'500px' } }}>
+        <Box sx={{ textAlign: 'center', height: '130px'}}>
             <h2 style={{ fontWeight: 'bolder', color: 'black', margin: 0}}>{data?.name}, <span style={{ fontWeight: 'lighter'}}>{data?.country}</span></h2>
             <h1 style={{ fontWeight: 'bolder', color: 'black', margin: 0}}><Degree temp={Math.round(today!.main.temp)} /></h1>
             <Box sx={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>
@@ -38,8 +38,8 @@ const ForeCast = ({ data } : Props ): JSX.Element => {
                     L: <Degree temp={Math.round(today!.main.temp_min)} />
                 </p>
             </Box>
-        </section>
-        <section style={{ display: 'flex', overflowX: 'scroll', width: '100%' }}>
+        </Box>
+        <Box sx={{ display: 'flex', overflowX: 'scroll', width: {xs: '85%', sm:'85%', md:'500px' }, height: '153px' }}>
             {data?.list.map((item, i) => {
                 return <Box key={i}>
                     <p style={{ margin: 0 }}>{i === 0 ? 'Now' : formatAMPM(new Date(item.dt * 1000))}</p>
@@ -52,18 +52,18 @@ const ForeCast = ({ data } : Props ): JSX.Element => {
                     </p>
                 </Box>
             })}
-        </section>
-        <section style={{ display: 'flex', justifyContent: 'space-between', width: '80%', marginTop: '15px' }}>
-            <SunGlassSection>
+        </Box>
+        <Box style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', width: '80%', marginTop: '15px' }}>
+            <SunGlassSection sx={{ width: { xs: '100%', sm:'40%' }}}>
                 <Sunrise />
                 <span style={{ marginTop: '2px'}}>{getSunTime(data!.sunrise)}</span>
             </SunGlassSection>
-            <SunGlassSection>
+            <SunGlassSection sx={{ width: { xs: '100%', sm:'40%' }}}>
                 <Sunset />
                 <span style={{ marginTop: '2px'}}>{getSunTime(data!.sunset)}</span>
             </SunGlassSection>
-        </section>
-        <section style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', width: '80%', marginTop: '15px' }}>
+        </Box>
+        <Box style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', width: '80%', marginTop: '15px' }}>
             <Tile 
                 icon="wind" 
                 title="Wind" 
@@ -100,7 +100,7 @@ const ForeCast = ({ data } : Props ): JSX.Element => {
                 info={`${(today!.visibility / 1000).toFixed()} km`}
                 description={`${getVisibilityValue(today!.visibility)}`}
             />
-        </section>
+        </Box>
     </Box>
   )
 }

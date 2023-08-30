@@ -18,7 +18,7 @@ const App = (): JSX.Element => {
   const { loc, options, forecast, onOptionSelect, onSearch, handleSearch } = UseForeCast();
   return (
     <>
-      <StyledBox>
+      <StyledBox sx={{ height: { xs: '100%', sm: '100%', md: '100vh' }}}>
         {
           forecast 
           ? <ForeCast data={forecast} />
