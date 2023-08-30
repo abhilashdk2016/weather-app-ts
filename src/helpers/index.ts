@@ -46,3 +46,19 @@ export const getPop = (value: number): string => {
 
   return 'High probability'
 }
+
+export const kelvintoDegree = (value: number): number => {
+    return (273.15 - value) * 9 / 5 + 32;
+}
+
+export const formatAMPM = (date: Date) => {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    let minuteString = '';
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minuteString = minutes < 10 ? '0'+ minutes : `${minutes}`;
+    var strTime = hours + ':' + minuteString + ' ' + ampm;
+    return strTime;
+  }
