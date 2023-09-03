@@ -6,6 +6,7 @@ const UseForeCast = () => {
   const [options, setOptions] = useState<[]>([]);
   const [city, setCity] = useState<optionType | null>(null);
   const [forecast, setForecast] = useState<forecastType | null>(null);
+  const [error, setError ] = useState<string | null>("");
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setLoc(value);
@@ -20,9 +21,14 @@ const UseForeCast = () => {
     fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${import.meta.env.VITE_WEATHER_APP_API_KEY}`)
     .then(res => res.json())
     .then(data => {
+      if(data && data.cod === 401) {
+        setError("Unauthorized");
+      }
       setOptions(data);
     })
-    .catch((e) => console.log({ e }));
+    .catch((e) => {
+      console.log({ e });
+    });
   }
 
   const onOptionSelect = (option: optionType) => {
@@ -47,12 +53,15 @@ const UseForeCast = () => {
         }
         setForecast(forecastData);
       })
-      .catch((e) => console.log({ e }));
+      .catch((e) => {
+        console.log({ e });
+        setError(e);
+      });
     }
   }
-
+  console.log(error);
   return {
-    loc, options, forecast, onOptionSelect, onSearch, handleSearch
+    loc, options, forecast, onOptionSelect, onSearch, handleSearch, error, setError
   }
 }
 

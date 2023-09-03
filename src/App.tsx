@@ -15,14 +15,14 @@ const StyledBox = styled(Box)({
 });
 
 const App = (): JSX.Element => {
-  const { loc, options, forecast, onOptionSelect, onSearch, handleSearch } = UseForeCast();
+  const { loc, options, forecast, onOptionSelect, onSearch, handleSearch, error, setError } = UseForeCast();
   return (
     <>
       <StyledBox sx={{ height: { xs: '100%', sm: '100%', md: '100vh' }}}>
         {
           forecast 
-          ? <ForeCast data={forecast} />
-          : <SearchComponent loc={loc} options={options} onInputChange={handleSearch} onOptionSelect={onOptionSelect} onSubmit={onSearch} />
+          ? <ForeCast data={forecast} error={error} setError={setError} />
+          : <SearchComponent loc={loc} options={options} onInputChange={handleSearch} onOptionSelect={onOptionSelect} onSubmit={onSearch} error={error} setError={setError} />
         }
       </StyledBox>
     </>

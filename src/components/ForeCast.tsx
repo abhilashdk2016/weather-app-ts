@@ -1,13 +1,15 @@
-import { Box, styled } from "@mui/material"
+import { Box,  styled } from "@mui/material"
 import { forecastType } from "../types";
 import { formatAMPM, getHumidityValue, getPop, getSunTime, getVisibilityValue, getWindDirection } from "../helpers";
 import Degree from "./Degree";
 import Sunrise from "../icons/Sunrise";
 import Sunset from "../icons/Sunset";
 import Tile from "./Tile";
-// import Tile from "./Tile";
+import Error from "./Error";
 type Props = {
-    data: forecastType | null
+    data: forecastType | null,
+    error?: null | string,
+    setError: (value: (null|string)) => void
 }
 
 const SunGlassSection = styled(Box)({
@@ -24,11 +26,14 @@ const SunGlassSection = styled(Box)({
     marginBottom: '5px'
   });
 
-const ForeCast = ({ data } : Props ): JSX.Element => {
+const ForeCast = ({ data, error, setError } : Props ): JSX.Element => {
+  if(error) {
+    return <Error error={error} setError={setError} />
+  }
   const today = data?.list[0]
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: {xs: '100%', sm:'100%', md:'500px' } }}>
-        <Box sx={{ textAlign: 'center', height: '130px'}}>
+        <Box sx={{ textAlign: 'center', height: '130px', width: '100%'}}>
             <h2 style={{ fontWeight: 'bolder', color: 'black', margin: 0}}>{data?.name}, <span style={{ fontWeight: 'lighter'}}>{data?.country}</span></h2>
             <h1 style={{ fontWeight: 'bolder', color: 'black', margin: 0}}><Degree temp={Math.round(today!.main.temp)} /></h1>
             <Box sx={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>

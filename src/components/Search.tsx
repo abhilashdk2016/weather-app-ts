@@ -1,6 +1,7 @@
 import { Box, Button, List, ListItem, ListItemButton, ListItemText, styled } from "@mui/material";
 import { Search } from '@mui/icons-material';
 import { optionType } from "../types";
+import Error from "./Error";
   
   const GlassSection = styled(Box)({
     background: `rgba( 255, 255, 255, 0.2 )`,
@@ -46,7 +47,9 @@ import { optionType } from "../types";
     options: []
     onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     onOptionSelect: (option: optionType) => void
-    onSubmit: () => void
+    onSubmit: () => void,
+    error?: null | string,
+    setError: (value: (null|string)) => void
   }
   
 const SearchComponent = ({
@@ -54,8 +57,13 @@ const SearchComponent = ({
     options,
     onInputChange,
     onOptionSelect,
-    onSubmit
+    onSubmit,
+    error,
+    setError
 }: Props) => {
+  if(error) {
+    return <Error error={error} setError={setError} />
+  }
   return <GlassSection>
   <h1>Weather Forecast</h1>
   <p>Enter below a place you want to know the weather of</p>
